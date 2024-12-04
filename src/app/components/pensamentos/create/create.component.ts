@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [FormsModule,],
+  imports: [FormsModule, RouterModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -36,10 +37,6 @@ export class CreateComponent implements OnInit {
   }
 
   criarPensamento() {
-    throw new Error('Method not implemented.');
-  }
-
-  cancelar() {
     throw new Error('Method not implemented.');
   }
 }
