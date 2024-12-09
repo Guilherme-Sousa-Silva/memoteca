@@ -19,7 +19,15 @@ export class PensamentoServiceService {
     return this.http.get<Pensamento[]>(this.api);
   }
 
+  public buscarPorId(id: string): Observable<Pensamento> {
+    return this.http.get<Pensamento>(`${this.api}/${id}`);
+  }
+
   public criar(pensamento: CriarPensamento): Observable<Pensamento> {
     return this.http.post<Pensamento>(this.api, pensamento);
+  }
+
+  public excluir(id: string): Observable<Pensamento> {
+    return this.http.delete<Pensamento>(`${this.api}/${id}`)
   }
 }

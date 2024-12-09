@@ -8,5 +8,9 @@ export const routes: Routes = [{
     {
         path: 'criar-pensamento',
         loadComponent: () => import('./components/pensamentos/create/create.component').then(m => m.CreateComponent),
+    },
+    {
+        path: 'pensamentos/excluir-pensamento/:id',
+        loadComponent: () => import('./components/pensamentos/excluir/excluir.component').then(m => m.ExcluirComponent),
     }
 ];
