@@ -1,0 +1,22 @@
+@for (pensamento of pensamentos; track pensamento.id) {
+    <div class="pensamento ff-roboto-mono" [class]="pensamento.modelo" [ngClass]="{ 'pensamento-g': pensamento.conteudo.length >= 256, 'pensamento-p': pensamento.conteudo.length < 256}">
+        <img src="../../../../assets/imagens/{{pensamento.modelo}}.png" alt="aspas coloridas">
+        <p class="conteudo">{{pensamento.conteudo}}</p>
+        <p class="autoria">{{pensamento.autoria}}</p>
+        <div class="acoes">
+            <button class="botao-editar">
+                <img src="../../../../assets/imagens/icone-editar.png" alt="Icone de editar">
+            </button>
+            <button class="botao-excluir">
+                <img src="../../../../assets/imagens/icone-excluir.png" alt="Icone de lixeira">
+            </button>
+        </div>
+    </div>
+}
+@empty {
+    @defer (on immediate) {
+        <div class="ff-inter sem-pensamentos">
+            <p>Ainda não há nenhuma pensamento cadastrado!</p>
+        </div>
+    }
+}

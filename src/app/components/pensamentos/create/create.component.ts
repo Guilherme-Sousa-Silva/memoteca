@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { PensamentoServiceService } from '../../../services/pensamento-service.service';
+import { CriarPensamento } from '../../../interfaces/criar-pensamento-interface';
+import { Pensamento } from '../../../interfaces/pensamento-interface';
 
 @Component({
   selector: 'app-create',
@@ -32,11 +35,28 @@ export class CreateComponent implements OnInit {
 
   pensamento: string = '';
   autoria: string = '';
+  modeloSelecionado: string = '';
+
+  constructor(
+    private pensamentoService: PensamentoServiceService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
   }
 
   criarPensamento() {
-    throw new Error('Method not implemented.');
+    const criarPensamento: CriarPensamento = {
+      conteudo: this.pensamento,
+      autoria: this.autoria,
+      modelo: this.modeloSelecionado
+    }
+    
+    this.pensamentoService.criar(criarPensamento)
+      .subscribe((result: Pensamento) => {
+        if(result) {
+          this.router.navigate(['/']);
+        }
+      })
   }
 }

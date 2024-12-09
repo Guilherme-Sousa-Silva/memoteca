@@ -14,7 +14,7 @@
             @for (modelo of modelos; track modelo.id) {
                 <div class="radio-modelo">
                     <label [for]="modelo.informacao">
-                        <input type="radio" [id]="modelo.informacao" [value]="modelo.informacao" name="modelo-card">
+                        <input type="radio" [id]="modelo.informacao" [value]="modelo.informacao" name="modelo-card" [(ngModel)]="modeloSelecionado">
                         <div class="custom-radio">
                             <span></span>
                         </div>
