@@ -28,6 +28,10 @@ export class PensamentoServiceService {
   }
 
   public excluir(id: string): Observable<Pensamento> {
-    return this.http.delete<Pensamento>(`${this.api}/${id}`)
+    return this.http.delete<Pensamento>(`${this.api}/${id}`);
+  }
+
+  public editar(pensamento: Pensamento): Observable<Pensamento> {
+    return this.http.put<Pensamento>(`${this.api}/${pensamento.id}`, pensamento);
   }
 }

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Pensamento } from '../../../interfaces/pensamento-interface';
 import { CommonModule } from '@angular/common';
 import { PensamentoServiceService } from '../../../services/pensamento-service.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-pensamentos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './pensamentos.component.html',
   styleUrl: './pensamentos.component.scss'
 })

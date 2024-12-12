@@ -12,5 +12,9 @@ export const routes: Routes = [{
     {
         path: 'pensamentos/excluir-pensamento/:id',
         loadComponent: () => import('./components/pensamentos/excluir/excluir.component').then(m => m.ExcluirComponent),
-    }
+    },
+    {
+        path: 'pensamentos/editar-pensamento/:id',
+        loadComponent: () => import('./components/pensamentos/editar/editar.component').then(m => m.EditarComponent),
+    },
 ];
