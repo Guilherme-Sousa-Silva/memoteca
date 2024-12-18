@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PensamentoServiceService } from '../../../services/pensamento-service.service';
 import { CriarPensamento } from '../../../interfaces/criar-pensamento-interface';
@@ -8,7 +8,7 @@ import { Pensamento } from '../../../interfaces/pensamento-interface';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [FormsModule, RouterModule, ReactiveFormsModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -33,9 +33,12 @@ export class CreateComponent implements OnInit {
     informacao: 'modelo3'
   }];
 
-  pensamento: string = '';
-  autoria: string = '';
-  modeloSelecionado: string = '';
+
+  form: FormGroup = new FormGroup({
+    pensamento: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+    autoria: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    modelo: new FormControl('', [Validators.required]),
+  });
 
   constructor(
     private pensamentoService: PensamentoServiceService,
@@ -46,10 +49,12 @@ export class CreateComponent implements OnInit {
   }
 
   criarPensamento() {
+    const { form } = this.form.value;
+
     const criarPensamento: CriarPensamento = {
-      conteudo: this.pensamento,
-      autoria: this.autoria,
-      modelo: this.modeloSelecionado
+      conteudo: form.pensamento,
+      autoria: form.autoria,
+      modelo: form.modelo
     }
     
     this.pensamentoService.criar(criarPensamento)
