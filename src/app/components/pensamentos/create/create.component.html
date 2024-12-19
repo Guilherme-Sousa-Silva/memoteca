@@ -6,8 +6,45 @@
         <label for="pensamento">Pensamento</label>
         <input type="text" class="input" id="pensamento" formControlName="pensamento" name="pensamento" placeholder="Digite um pensamento">
 
+        @if (form.get('pensamento')?.hasError('required') && form.get('pensamento')?.touched) {
+            <div class="mensagem__erro" >
+                Pensamento é obrigatório!
+            </div>
+        }
+
+        @if (form.get('pensamento')?.hasError('minlength') && form.get('pensamento')?.dirty) {
+            <div class="mensagem__erro" >
+                Pensamento deve conter no minimo 5 caracteres!
+            </div>
+        }
+
+        @if (form.get('pensamento')?.hasError('maxlength') && form.get('pensamento')?.dirty) {
+            <div class="mensagem__erro" >
+                Pensamento deve conter no máximo 100 caracteres!
+            </div>
+        }
+
         <label for="autoria">Autoria</label>
         <input type="text" class="input" id="autoria" formControlName="autoria" name="autoria" placeholder="Digite a autoria ou fonte">
+
+
+        @if (form.get('autoria')?.hasError('required') && form.get('autoria')?.touched) {
+            <div class="mensagem__erro" >
+                Autoria é obrigatório!
+            </div>
+        }
+
+        @if (form.get('autoria')?.hasError('minlength') && form.get('autoria')?.touched) {
+            <div class="mensagem__erro" >
+                Autoria deve conter no minimo 3 caracteres!
+            </div>
+        }
+
+        @if (form.get('autoria')?.hasError('maxlength') && form.get('autoria')?.touched) {
+            <div class="mensagem__erro" >
+                Autoria deve conter no máximo 50 caracteres!
+            </div>
+        }
 
         <label for="modelo">Selecione o modelo do card:</label>
         <div class="container-radio">
@@ -30,7 +67,7 @@
             }
         </div>
         <div class="acoes">
-            <button (click)="criarPensamento()" class="botao">Salvar</button>
+            <button [disabled]="!form.valid" [ngClass]="{'botao__desabilitado': !form.valid}" (click)="criarPensamento()" class="botao">Salvar</button>
             <button [routerLink]="['/']" class="botao">Cancelar</button>
         </div>
     </form>

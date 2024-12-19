@@ -4,11 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 import { PensamentoServiceService } from '../../../services/pensamento-service.service';
 import { CriarPensamento } from '../../../interfaces/criar-pensamento-interface';
 import { Pensamento } from '../../../interfaces/pensamento-interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [FormsModule, RouterModule, ReactiveFormsModule],
+  imports: [FormsModule, RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -35,8 +36,16 @@ export class CreateComponent implements OnInit {
 
 
   form: FormGroup = new FormGroup({
-    pensamento: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-    autoria: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    pensamento: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5), 
+      Validators.maxLength(100), 
+      Validators.pattern(/(.|\s)*\S(.|\s)*/)]),
+    autoria: new FormControl('', [
+      Validators.required, 
+      Validators.minLength(3),
+      Validators.maxLength(50), 
+      Validators.pattern(/(.|\s)*\S(.|\s)*/)]),
     modelo: new FormControl('', [Validators.required]),
   });
 
@@ -49,19 +58,21 @@ export class CreateComponent implements OnInit {
   }
 
   criarPensamento() {
-    const { form } = this.form.value;
+    if (this.form.valid) {
+      const { form } = this.form.value;
 
-    const criarPensamento: CriarPensamento = {
-      conteudo: form.pensamento,
-      autoria: form.autoria,
-      modelo: form.modelo
+      const criarPensamento: CriarPensamento = {
+        conteudo: form.pensamento,
+        autoria: form.autoria,
+        modelo: form.modelo
+      }
+      
+      this.pensamentoService.criar(criarPensamento)
+        .subscribe((result: Pensamento) => {
+          if(result) {
+            this.router.navigate(['/']);
+          }
+        })
     }
-    
-    this.pensamentoService.criar(criarPensamento)
-      .subscribe((result: Pensamento) => {
-        if(result) {
-          this.router.navigate(['/']);
-        }
-      })
   }
 }

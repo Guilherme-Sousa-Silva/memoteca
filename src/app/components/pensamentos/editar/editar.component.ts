@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { PensamentoServiceService } from '../../../services/pensamento-service.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Pensamento } from '../../../interfaces/pensamento-interface';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-editar',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [FormsModule, RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './editar.component.html',
   styleUrl: './editar.component.scss'
 })
@@ -39,6 +40,20 @@ export class EditarComponent implements OnInit {
     informacao: 'modelo3'
   }];
 
+  form: FormGroup = new FormGroup({
+    pensamento: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5), 
+      Validators.maxLength(100), 
+      Validators.pattern(/(.|\s)*\S(.|\s)*/)]),
+    autoria: new FormControl('', [
+      Validators.required, 
+      Validators.minLength(3),
+      Validators.maxLength(50), 
+      Validators.pattern(/(.|\s)*\S(.|\s)*/)]),
+    modelo: new FormControl('', [Validators.required]),
+  });
+
   constructor(
     private pensamentoService: PensamentoServiceService,
     private router: Router,
@@ -58,11 +73,13 @@ export class EditarComponent implements OnInit {
   }
 
   editar() {
-    this.pensamentoService.editar(this.pensamento)
+    if (this.form.valid) {
+      this.pensamentoService.editar(this.pensamento)
       .subscribe((result: Pensamento) => {
         if(result) {
           this.router.navigate(['/']);
         }
       })
+    }
   }
 }
