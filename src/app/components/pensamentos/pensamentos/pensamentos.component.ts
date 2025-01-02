@@ -13,7 +13,9 @@ import { RouterModule } from '@angular/router';
 })
 export class PensamentosComponent implements OnInit {
 
-  pensamentos: Pensamento[] = []
+  pensamentos: Pensamento[] = [];
+  paginaAtual: number = 1;
+  itensPorPagina: number = 6;
 
   constructor(
     private pensamentoService: PensamentoServiceService
@@ -23,7 +25,7 @@ export class PensamentosComponent implements OnInit {
   }
 
   listarPensamentos() {
-    this.pensamentoService.listar()
+    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina)
       .subscribe((result) => {
         this.pensamentos = result;
       })
