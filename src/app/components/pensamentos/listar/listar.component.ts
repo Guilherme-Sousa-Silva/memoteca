@@ -31,26 +31,28 @@ export class ListarComponent implements OnInit {
   }
 
   listarPensamentos() {
-    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina)
+    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina, this.filtro)
       .subscribe((result) => {
-        this.pensamentos = result.data;
+        this.pensamentos = result;
       })
   }
 
   carregarMais() {
-    this.pensamentoService.listar(++this.paginaAtual, this.itensPorPagina)
+    this.pensamentoService.listar(++this.paginaAtual, this.itensPorPagina, this.filtro)
       .subscribe(listaPensamentos => {
+        this.pensamentos.push(...listaPensamentos);
+        if(!listaPensamentos.length) {
+          this.haMaisPensamentos = false
+        }
+      })
+  }
 
-        if(this.pensamentos.length >= listaPensamentos.items) {
-          this.haMaisPensamentos = false;
-        }
-        else {
-          this.pensamentos.push(...listaPensamentos.data);
-        }
-
-        if(!listaPensamentos.data.length) {
-          this.haMaisPensamentos = false;
-        }
+  pesquisarPensamentos() {
+    this.haMaisPensamentos = true;
+    this.paginaAtual = 1;
+    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina, this.filtro)
+      .subscribe((result) => {
+        this.pensamentos = result;
       })
   }
 }

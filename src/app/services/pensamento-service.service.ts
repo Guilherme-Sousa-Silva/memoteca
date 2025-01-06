@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Pensamento } from '../interfaces/pensamento-interface';
 import { Observable } from 'rxjs';
 import { CriarPensamento } from '../interfaces/criar-pensamento-interface';
-import { PaginacaoResponse } from '../interfaces/pensamento-paginado.interfce';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +15,19 @@ export class PensamentoServiceService {
     private http: HttpClient
   ) { }
 
-  public listar(pagina: number, itensPorPagina: number): Observable<PaginacaoResponse<Pensamento[]>> {
+  public listar(pagina: number, itensPorPagina: number, filtro: string): Observable<Pensamento[]> {
     // GET /posts?_page=20&_limit=10
 
     let params = new HttpParams()
       .set("_page", pagina.toString())
-      .set("_per_page", itensPorPagina.toString())
+      .set("_limit", itensPorPagina.toString())
+
+    if(filtro.trim().length > 2) {
+      params = params.set("q", filtro.trim())
+    }
 
     // return this.http.get<Pensamento[]>(`${this.api}?_page=${pagina}&_limit=${itensPorPagina}`);
-    return this.http.get<PaginacaoResponse<Pensamento[]>>(this.api, {params: params});
+    return this.http.get<Pensamento[]>(this.api, {params: params});
   }
 
   public buscarPorId(id: string): Observable<Pensamento> {
