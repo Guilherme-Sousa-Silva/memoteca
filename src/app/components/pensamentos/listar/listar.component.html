@@ -4,6 +4,10 @@
         <button [routerLink]="['/criar-pensamento']" class="botao">Adicionar pensamento</button>
     </header>
     <div class="mural">
-        <app-pensamentos class="mural"></app-pensamentos>
+        <app-pensamentos class="mural" [pensamentos]="pensamentos"></app-pensamentos>
     </div>
 </section>
+
+<app-carregar-mais 
+    [haMaisPensamentos]="haMaisPensamentos"
+    (click)="carregarMais()"></app-carregar-mais>
