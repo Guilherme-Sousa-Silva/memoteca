@@ -4,11 +4,13 @@ import { PensamentosComponent } from '../pensamentos/pensamentos.component';
 import { PensamentoServiceService } from '../../../services/pensamento-service.service';
 import { Pensamento } from '../../../interfaces/pensamento-interface';
 import { CarregarMaisComponent } from './carregar-mais/carregar-mais.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-listar',
   standalone: true,
-  imports: [RouterModule, PensamentosComponent, CarregarMaisComponent],
+  imports: [RouterModule, PensamentosComponent, CarregarMaisComponent, CommonModule, FormsModule],
   templateUrl: './listar.component.html',
   styleUrl: './listar.component.scss'
 })
@@ -18,6 +20,7 @@ export class ListarComponent implements OnInit {
   paginaAtual: number = 1;
   itensPorPagina: number = 6;
   haMaisPensamentos: boolean = true;
+  filtro: string = "";
 
   constructor(
     private pensamentoService: PensamentoServiceService
