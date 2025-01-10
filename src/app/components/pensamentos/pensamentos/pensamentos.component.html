@@ -4,6 +4,17 @@
         <p class="conteudo">{{pensamento.conteudo}}</p>
         <p class="autoria">{{pensamento.autoria}}</p>
         <div class="acoes">
+            @if (pensamento.favorito) {
+                <button class="botao-favorito">
+                    <img src="../../../../assets/imagens/icone-favorito-ativo.png" alt="icone de favoritar não preenchido" (click)="favoritar(pensamento.id)">
+                </button>
+            }
+            @else {
+                <button class="botao-favorito">
+                    <img src="../../../../assets/imagens/icone-favorito-inativo.png" alt="incone de favoritar preenchido" (click)="favoritar(pensamento.id)">
+                </button>
+            }
+
             <button class="botao-editar">
                 <img src="../../../../assets/imagens/icone-editar.png" routerLink="/pensamentos/editar-pensamento/{{pensamento.id}}" alt="Icone de editar">
             </button>

@@ -47,6 +47,7 @@ export class CreateComponent implements OnInit {
       Validators.maxLength(50), 
       Validators.pattern(/(.|\s)*\S(.|\s)*/)]),
     modelo: new FormControl('', [Validators.required]),
+    favorito: new FormControl('')
   });
 
   constructor(
@@ -64,7 +65,8 @@ export class CreateComponent implements OnInit {
       const criarPensamento: CriarPensamento = {
         conteudo: form.pensamento,
         autoria: form.autoria,
-        modelo: form.modelo
+        modelo: form.modelo,
+        favorito: false
       }
       
       this.pensamentoService.criar(criarPensamento)

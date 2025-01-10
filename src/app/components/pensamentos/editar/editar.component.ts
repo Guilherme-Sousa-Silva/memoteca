@@ -18,7 +18,8 @@ export class EditarComponent implements OnInit {
     id: '0',
     conteudo: '',
     autoria: '',
-    modelo: ''
+    modelo: '',
+    favorito: false
   }
 
   modelos: any[] = [{
