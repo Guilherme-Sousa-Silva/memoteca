@@ -11,10 +11,14 @@
             <img src="../../../../assets/imagens/lupa.png" alt="Lupa azul">
         </div>
         <h2 class="ff-inter">Meu Mural</h2>
-        <button [routerLink]="['/criar-pensamento']" class="botao">Adicionar pensamento</button>
+        <div class="botoes">
+            <button (click)="listarPensamentos()" class="botao">Meu Mural</button>
+            <button (click)="listarFavoritos()" class="botao">Meus Favoritos</button>
+            <button [routerLink]="['/criar-pensamento']" class="botao">Novo pensamento</button>
+        </div>
     </header>
     <div class="mural">
-        <app-pensamentos class="mural" [pensamentos]="pensamentos"></app-pensamentos>
+        <app-pensamentos class="mural" [pensamentos]="pensamentos" [listaFavoritos]="listaFavoritos"></app-pensamentos>
     </div>
 </section>
 

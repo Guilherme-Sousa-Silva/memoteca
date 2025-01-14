@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit } from '@angular/core';
+import {Component, Input, OnInit } from '@angular/core';
 import { Pensamento } from '../../../interfaces/pensamento-interface';
 import { CommonModule } from '@angular/common';
 import { PensamentoServiceService } from '../../../services/pensamento-service.service';
@@ -21,12 +21,12 @@ export class PensamentosComponent implements OnInit {
     autoria: '',
     modelo: '',
     favorito: false
-  } 
+  }
+  @Input() listaFavoritos: Pensamento[] = [];  
   
   constructor(
     private pensamentoService: PensamentoServiceService
   ) {}
-
 
   ngOnInit(): void {
   }
@@ -39,6 +39,14 @@ export class PensamentosComponent implements OnInit {
       this.pensamentos = this.pensamentos.map(pensamento =>
         pensamento.id === pensamentoId ? { ...this.pensamento } : pensamento
       );
+
+      if (this.listaFavoritos.length > 0) {
+        const index = this.listaFavoritos.findIndex(fav => fav.id === pensamentoId);
+            if (index !== -1) {
+                this.listaFavoritos.splice(index, 1);
+            }
+        this.pensamentos = this.listaFavoritos;
+      }
     }
   }
   

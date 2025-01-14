@@ -21,6 +21,8 @@ export class ListarComponent implements OnInit {
   itensPorPagina: number = 6;
   haMaisPensamentos: boolean = true;
   filtro: string = "";
+  favorito: boolean = false;
+  listaFavoritos: Pensamento[] = [];
 
   constructor(
     private pensamentoService: PensamentoServiceService
@@ -31,14 +33,15 @@ export class ListarComponent implements OnInit {
   }
 
   listarPensamentos() {
-    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina, this.filtro)
+    this.favorito = false;
+    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina, this.filtro, this.favorito)
       .subscribe((result) => {
         this.pensamentos = result;
       })
   }
 
   carregarMais() {
-    this.pensamentoService.listar(++this.paginaAtual, this.itensPorPagina, this.filtro)
+    this.pensamentoService.listar(++this.paginaAtual, this.itensPorPagina, this.filtro, this.favorito)
       .subscribe(listaPensamentos => {
         this.pensamentos.push(...listaPensamentos);
         if(!listaPensamentos.length) {
@@ -50,9 +53,18 @@ export class ListarComponent implements OnInit {
   pesquisarPensamentos() {
     this.haMaisPensamentos = true;
     this.paginaAtual = 1;
-    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina, this.filtro)
+    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina, this.filtro, this.favorito)
       .subscribe((result) => {
         this.pensamentos = result;
+      })
+  }
+
+  listarFavoritos() {
+    this.favorito = true;
+    this.pensamentoService.listar(this.paginaAtual, this.itensPorPagina, this.filtro, this.favorito)
+      .subscribe((result) => {
+        this.pensamentos = result;
+        this.listaFavoritos = result;
       })
   }
 }
