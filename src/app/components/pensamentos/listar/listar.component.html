@@ -1,0 +1,27 @@
+<section class="container">
+    <header class="header d-flex">
+        <div class="buscar-pensamentos">
+            <input 
+                class="filtro" 
+                placeholder="O que você procura?"
+                autofocus
+                [(ngModel)]="filtro"
+                (keyup)="pesquisarPensamentos()" 
+                >
+            <img src="../../../../assets/imagens/lupa.png" alt="Lupa azul">
+        </div>
+        <h2 class="ff-inter">Meu Mural</h2>
+        <div class="botoes">
+            <button (click)="listarPensamentos()" class="botao">Meu Mural</button>
+            <button (click)="listarFavoritos()" class="botao">Meus Favoritos</button>
+            <button [routerLink]="['/criar-pensamento']" class="botao">Novo pensamento</button>
+        </div>
+    </header>
+    <div class="mural">
+        <app-pensamentos class="mural" [pensamentos]="pensamentos" [listaFavoritos]="listaFavoritos"></app-pensamentos>
+    </div>
+</section>
+
+<app-carregar-mais 
+    [haMaisPensamentos]="haMaisPensamentos"
+    (click)="carregarMais()"></app-carregar-mais>

@@ -1,0 +1,74 @@
+{
+  "pensamentos": [
+    {
+      "id": "1",
+      "conteudo": "Que bom que você veio editado",
+      "autoria": "Guilherme o foda",
+      "modelo": "modelo2",
+      "favorito": false
+    },
+    {
+      "id": "2",
+      "conteudo": "Que bom que você veio, jef de sousa.",
+      "autoria": "Eu mesmo 2",
+      "modelo": "modelo2",
+      "favorito": false
+    },
+    {
+      "id": "3",
+      "conteudo": "Que bom que você veio aqui.",
+      "autoria": "Eu mesmo 3",
+      "modelo": "modelo3",
+      "favorito": false
+    },
+    {
+      "id": "4",
+      "conteudo": "Que bom que você veio aqui.",
+      "autoria": "Eu mesmo 3",
+      "modelo": "modelo3",
+      "favorito": false
+    },
+    {
+      "id": "5",
+      "conteudo": "Que bom que você veio aqui.",
+      "autoria": "Eu mesmo 3",
+      "modelo": "modelo3",
+      "favorito": false
+    },
+    {
+      "id": "6",
+      "conteudo": "Que bom que você veio aqui.",
+      "autoria": "Eu mesmo 3",
+      "modelo": "modelo3",
+      "favorito": false
+    },
+    {
+      "id": "7",
+      "conteudo": "Que bom que você veio aqui.",
+      "autoria": "Eu mesmo 3",
+      "modelo": "modelo3",
+      "favorito": false
+    },
+    {
+      "id": "8",
+      "conteudo": "Que bom que você veio aqui.",
+      "autoria": "Eu mesmo 3",
+      "modelo": "modelo3",
+      "favorito": false
+    },
+    {
+      "id": "9",
+      "conteudo": "Que bom que você veio aqui.",
+      "autoria": "Eu mesmo 3",
+      "modelo": "modelo3",
+      "favorito": false
+    },
+    {
+      "id": "10",
+      "conteudo": "Que bom que você veio aqui.",
+      "autoria": "Eu mesmo 3",
+      "modelo": "modelo3",
+      "favorito": false
+    }
+  ]
+}

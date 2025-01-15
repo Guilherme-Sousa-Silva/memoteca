@@ -1,20 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
 import { PensamentoServiceService } from '../../../services/pensamento-service.service';
-import { CriarPensamento } from '../../../interfaces/criar-pensamento-interface';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Pensamento } from '../../../interfaces/pensamento-interface';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-editar',
   standalone: true,
   imports: [FormsModule, RouterModule, ReactiveFormsModule, CommonModule],
-  templateUrl: './create.component.html',
-  styleUrl: './create.component.scss'
+  templateUrl: './editar.component.html',
+  styleUrl: './editar.component.scss'
 })
+export class EditarComponent implements OnInit {
 
-export class CreateComponent implements OnInit {
+  pensamento: Pensamento = {
+    id: '0',
+    conteudo: '',
+    autoria: '',
+    modelo: '',
+    favorito: false
+  }
+
   modelos: any[] = [{
     id: 1,
     imagem: '../../../../assets/imagens/modelo1.png',
@@ -34,7 +41,6 @@ export class CreateComponent implements OnInit {
     informacao: 'modelo3'
   }];
 
-
   form: FormGroup = new FormGroup({
     pensamento: new FormControl('', [
       Validators.required,
@@ -47,34 +53,34 @@ export class CreateComponent implements OnInit {
       Validators.maxLength(50), 
       Validators.pattern(/(.|\s)*\S(.|\s)*/)]),
     modelo: new FormControl('', [Validators.required]),
-    favorito: new FormControl('')
   });
 
   constructor(
     private pensamentoService: PensamentoServiceService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.buscarPensamentoPorId(id!);
   }
 
-  criarPensamento() {
-    if (this.form.valid) {
-      const { form } = this.form.value;
+  buscarPensamentoPorId(id: string) {
+    this.pensamentoService.buscarPorId(id)
+      .subscribe((result: Pensamento) => {
+        this.pensamento = result;
+      })
+  }
 
-      const criarPensamento: CriarPensamento = {
-        conteudo: form.pensamento,
-        autoria: form.autoria,
-        modelo: form.modelo,
-        favorito: false
-      }
-      
-      this.pensamentoService.criar(criarPensamento)
-        .subscribe((result: Pensamento) => {
-          if(result) {
-            this.router.navigate(['/']);
-          }
-        })
+  editar() {
+    if (this.form.valid) {
+      this.pensamentoService.editar(this.pensamento)
+      .subscribe((result: Pensamento) => {
+        if(result) {
+          this.router.navigate(['/']);
+        }
+      })
     }
   }
 }
